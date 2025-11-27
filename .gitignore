@@ -1,0 +1,16 @@
+# --- Python y Entornos Virtuales ---
+venv/
+env/
+.env
+__pycache__/
+*.pyc
+
+# --- Mac OS (Archivos basura del sistema) ---
+.DS_Store
+
+# --- VS Code (Configuraciones locales tuyas) ---
+.vscode/
+
+# --- Datos (Opcional) ---
+# Si decides que el CSV es muy grande o privado, descomenta abajo:
+# *.csv

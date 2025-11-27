@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # --- SERVICIO 1: CEREBRO (API) ---
+  backend:
+    build: ./backend  # Construye usando el Dockerfile de la carpeta backend
+    container_name: atp-backend-container
+    ports:
+      - "8000:8000"   # Puerto PC : Puerto Contenedor
+    networks:
+      - atp-network
+
+  # --- SERVICIO 2: CARA (WEB) ---
+  frontend:
+    build: ./frontend # Construye usando el Dockerfile de la carpeta frontend
+    container_name: atp-frontend-container
+    ports:
+      - "8501:8501"
+    environment:
+      # TRUCO PRO: Le decimos al frontend dónde está el backend
+      # Dentro de la red de Docker, el backend se llama "backend", no "localhost"
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend       # Espera a que el backend arranque antes de iniciar
+    networks:
+      - atp-network
+
+# Creamos una red privada para que se comuniquen entre ellos
+networks:
+  atp-network:
+    driver: bridge
